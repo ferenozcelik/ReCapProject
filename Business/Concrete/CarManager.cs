@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,6 +25,37 @@ namespace Business.Concrete
             _carDAL = carDAL;
         }
 
+        public void Add(Car car)
+        {
+            if(car.CarName.Length >= 2)
+            {
+                if(car.DailyPrice > 0)
+                {
+                    _carDAL.Add(car);
+                    Console.WriteLine("Successfully added.");
+                }
+                else
+                {
+                    Console.WriteLine("Car daily price must be greater than 0.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Car name must be at least 2 characters.");
+            }
+        }
+
+        public void Delete(Car car)
+        {
+            _carDAL.Delete(car);
+            Console.WriteLine("Successfully deleted.");
+        }
+        public void Update(Car car)
+        {
+            _carDAL.Update(car);
+            Console.WriteLine("Successfully updated.");
+        }
+
         public List<Car> GetAll()
         {
             return _carDAL.GetAll();
@@ -37,6 +69,11 @@ namespace Business.Concrete
         public List<Car> GetCarsByColorId(int colorId)
         {
             return _carDAL.GetAll(c => c.ColorId == colorId);
+        }
+
+        public List<CarDetailDto> GetCarDetails()
+        {
+            return _carDAL.GetCarDetails();
         }
     }
 }

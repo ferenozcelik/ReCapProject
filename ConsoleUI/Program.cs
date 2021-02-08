@@ -49,62 +49,42 @@ namespace ConsoleUI
             Console.WriteLine("\n--- Entity Framework ---\n");
 
             CarManager carManager2 = new CarManager(new EfCarDal());
-            EfCarDal efCarDal = new EfCarDal();
-            /*
-            Car car1 = new Car
-            {
-                Id = 1,
-                CarName = "Mazda",
-                BrandId = 1,
-                ColorId = 1,
-                DailyPrice = 500,
-                ModelYear = 2020
-            };
-            Car car2 = new Car
-            {
-                Id = 2,
-                CarName = "Opel",
-                BrandId = 2,
-                ColorId = 1,
-                DailyPrice = 400,
-                ModelYear = 2019
-            };
-
-            efCarDal.Add(car1);
-            efCarDal.Add(car2);
-            */
+           
             
-            // Yukardaki gibi eklenebilir ya da tables'da sağ tıkayıp view data yaparak eklenebilir.
-            Console.WriteLine("Tüm arabalar:");
+            // tables'da sağ tıkayıp view data yaparak eklenebilir.
+            Console.WriteLine("All cars:");
             foreach (var car in carManager2.GetAll())
             {
                 Console.WriteLine(car.CarName);
             }
 
-            Console.WriteLine("Marka ID'ye göre sıralanmış arabalar:");
+            Console.WriteLine("\nCars ordered by brand ID: ");
             foreach (var car in carManager2.GetCarsByBrandId(1))
             {
                 Console.WriteLine(car.CarName);
             }
 
-            Console.WriteLine("Renk ID'ye göre sıralanmış arabalar:");
+            Console.WriteLine("\nCars ordered by color ID: ");
             foreach (var car in carManager2.GetCarsByColorId(2))
             {
                 Console.WriteLine(car.CarName);
             }
 
-            Car car3 = new Car
+            ////////////////////////
+            
+            Console.WriteLine("\n---- GetCarDetails ----\n");
+
+            CarManager carManager3 = new CarManager(new EfCarDal());
+            foreach (var car in carManager3.GetCarDetails())
             {
-                Id = 2,
-                CarName = "O",
-                BrandId = 2,
-                ColorId = 1,
-                DailyPrice = 0,
-                ModelYear = 2019
-            };
-
-            efCarDal.Add(car3);
-
+                Console.WriteLine("Car ID: " + car.CarId
+                    + "\nCar Name: " + car.CarName
+                    + "\nBrand Name: " + car.BrandName
+                    + "\nColor ID: " + car.ColorId
+                    + "\nColor Name: " + car.ColorName
+                    + "\nDaily Price: " + car.DailyPrice);
+                Console.WriteLine("=========================");
+            }
         }
     }
 }

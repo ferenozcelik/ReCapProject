@@ -1,10 +1,11 @@
-﻿using Entities.Abstract;
+﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+// core katmanı diğer katmanları referans almaz. Add Project Reference yapılmaz. Yoksa bağımlı olur.
 
-namespace DataAccess.Abstract
+namespace Core.Abstract
 {
     public interface IEntityRepository<T> where T:class,IEntity,new()
     {

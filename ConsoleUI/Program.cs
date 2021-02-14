@@ -53,19 +53,19 @@ namespace ConsoleUI
             
             // tables'da sağ tıkayıp view data yaparak eklenebilir.
             Console.WriteLine("All cars:");
-            foreach (var car in carManager2.GetAll())
+            foreach (var car in carManager2.GetAll().Data)
             {
                 Console.WriteLine(car.CarName);
             }
 
             Console.WriteLine("\nCars ordered by brand ID: ");
-            foreach (var car in carManager2.GetCarsByBrandId(1))
+            foreach (var car in carManager2.GetCarsByBrandId(1).Data)
             {
                 Console.WriteLine(car.CarName);
             }
 
             Console.WriteLine("\nCars ordered by color ID: ");
-            foreach (var car in carManager2.GetCarsByColorId(2))
+            foreach (var car in carManager2.GetCarsByColorId(2).Data)
             {
                 Console.WriteLine(car.CarName);
             }
@@ -75,7 +75,7 @@ namespace ConsoleUI
             Console.WriteLine("\n---- GetCarDetails ----\n");
 
             CarManager carManager3 = new CarManager(new EfCarDal());
-            foreach (var car in carManager3.GetCarDetails())
+            foreach (var car in carManager3.GetCarDetails().Data)
             {
                 Console.WriteLine("Car ID: " + car.CarId
                     + "\nCar Name: " + car.CarName
@@ -84,6 +84,47 @@ namespace ConsoleUI
                     + "\nColor Name: " + car.ColorName
                     + "\nDaily Price: " + car.DailyPrice);
                 Console.WriteLine("=========================");
+            }
+
+            //////////////
+
+            Console.WriteLine("\n success data result \n");
+
+            var result = carManager3.GetCarDetails();
+
+            if(result.Success)
+            {
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.CarName + " / " + car.BrandName);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+            ///////////
+
+            Console.WriteLine("\n---- GetRentalDetails ----\n");
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result2 = rentalManager.GetRentalDetailsDto(1);
+
+            if (result2.Success)
+            {
+                foreach (var rental in result2.Data)
+                {
+                    Console.WriteLine(
+                        "Rental ID: " + rental.RentalId
+                        + "\nCar ID: " + rental.CarId
+                        + "\nCar Name: " + rental.CarName
+                        + "\nRent Date: " + rental.RentDate
+                        + "\nReturn Date: " + rental.ReturnDate
+                        + "\nUser Name: " + rental.UserName
+                        + "\nCustomer Name: " + rental.CustomerName
+                        );
+                        
+                }
             }
         }
     }

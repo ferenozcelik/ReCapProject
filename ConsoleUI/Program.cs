@@ -108,7 +108,7 @@ namespace ConsoleUI
 
             Console.WriteLine("\n---- GetRentalDetails ----\n");
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            var result2 = rentalManager.GetRentalDetailsDto(1);
+            var result2 = rentalManager.GetRentalDetails(1);
 
             if (result2.Success)
             {
